@@ -2104,7 +2104,7 @@ label .container__header-icon {
 }
 
 .player__popup-cd-info h4 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: var(--text-secondary);
 }
 
@@ -2112,16 +2112,16 @@ label .container__header-icon {
     margin: 0;
     padding: 0 10px;
     font-size: 2rem;
-    line-height: 2.2rem;
+    line-height: 2rem;
     text-align: center;
     color: var(--text-color);
 }
 
 .player__popup-cd-info h3 {
     padding: 0 10px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-align: center;
-    line-height: 1.2rem;
+    line-height: 1rem;
     color: var(--text-secondary)
 }
 
@@ -2958,11 +2958,12 @@ label .container__header-icon {
 /* player */
 .lyric-content{
     max-width: 800px;
-    height: 480px;
+    height: calc(100% - 140px);
     overflow: hidden overlay;
     scroll-behavior: smooth;
     will-change: scroll-position;
     color: #fff;
+    transform: translateY(-30px);
 }
 
 .lyric-content::-webkit-scrollbar {
@@ -3001,5 +3002,6 @@ label .container__header-icon {
 
 /* content now playing */
 .content-now-playing{
-    height: 480px;
+    height: calc(100% - 160px);
+    transform: translateY(-20px);
 }
