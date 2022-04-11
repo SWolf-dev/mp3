@@ -2143,6 +2143,11 @@ label .container__header-icon {
     background-color: var(--player-bg);
 }
 
+.player__popup-footer{
+    position: fixed;
+    bottom: 0;
+}
+
 .player__popup .player__right,
 .player__popup .player__left {
     width: 30%;
@@ -2992,4 +2997,9 @@ label .container__header-icon {
     text-align: center;
     font-size: 20px;
     font-weight: 400;
+}
+
+/* content now playing */
+.content-now-playing{
+    height: 480px;
 }
