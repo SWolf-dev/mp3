@@ -1158,7 +1158,6 @@ const app = {
             let apiURL = `https://music-player-pink.vercel.app/api/search?keyword=${value}`;
             let data = await fetch(apiURL)
                 .then(res=> res.json()) 
-                console.log(data)
             if(data.err == 0){
                 contentSearch.innerHTML = app.html`<div class="search-box">
                     ${data.data.songs.map((item)=>{
@@ -1316,7 +1315,6 @@ const app = {
             _this.isPlaying = true;
             songActives.forEach(songActive => {
                 songActive.classList.add('playing')
-                console.log(songActive)
             })
             player.classList.add('playing');
             playerInfos.forEach(playerInfo => {
