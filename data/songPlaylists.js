@@ -6,7 +6,7 @@ var listSong = [
             singer: ["Khắc Việt"],
             path: "./assets/music/listSong1/song2.mp3",
             image: "./assets/img/musics/song2.jpg",
-            encodeId:'ZW8W778A'
+            encodeId:'ZZUB0I0E'
         },
         {
             name: "Cứ Chill Thôi",
