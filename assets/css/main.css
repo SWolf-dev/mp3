@@ -760,6 +760,7 @@
 .app__header-search-box-title {
     padding: 6px 12px;
     width: 20%;
+    color: #fff;
     margin-left: 10px;
     border-radius: 12px;
     background-color: #992392;
