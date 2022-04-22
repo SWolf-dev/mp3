@@ -84,7 +84,7 @@ const volumeBtns = Array.from($$('.player__options-btn.volume.option-btn'))
 const volumeTracks = Array.from($$('.progress__track.volume--track .progress__track-update'));
 const volumeIcons = Array.from($$('.volume .btn--icon'));
 const App = $('.app');
-const miniplayer =$('#miniplayer');
+const miniplayer = $('#miniplayer');
 const lyricContent = $('.lyric-content')
 const closeMv = $('.closed')
 const overlay = $('.over-lay')
@@ -93,10 +93,10 @@ const iframe = $('.image iframe')
 var currentIndex = 0
 
 
-function parseTime(number){
-   let minutes = Math.floor(number/60);
-   let seconds = Math.floor(number - minutes*60);
-   return `${minutes<10 ? "0"+minutes : minutes}:${seconds<10 ? "0"+seconds : seconds}`
+function parseTime(number) {
+    let minutes = Math.floor(number / 60);
+    let seconds = Math.floor(number - minutes * 60);
+    return `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`
 }
 
 const app = {
@@ -111,9 +111,9 @@ const app = {
     currentPlaylist: 0, //choose playlist
     themeList: 0, //Theme list index (have > 1 lists)
     currentTheme: 0, //Current theme index in theme list
-    lyricId : 'ZW8W778A',
+    lyricId: 'ZW8W778A',
     indexArray: [], //Use for random song
-    slideIndexs: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //Index of Each tab  (playlist, album, mv, artist)
+    slideIndexs: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], //Index of Each tab  (playlist, album, mv, artist)
     slideSelectors: [
         '.tab-home .playlist--container .row__item.item--playlist',
         '.tab-home .album--container .row__item.item--album',
@@ -127,7 +127,7 @@ const app = {
         '.tab--following .singer-slide--container .singer__slide-item',
     ],
     slideTitleWidth: 0, //Width of player title on footer
-    
+
     songPlaylists: JSON.parse(localStorage.getItem(MUSIC_STORAGE_KEY) || '[]'),
 
     playlists: JSON.parse(localStorage.getItem(PLAYLIST_STORAGE_KEY) || '[]'),
@@ -176,26 +176,26 @@ const app = {
     config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY) || '{}'),
 
 
-    setConfig: function(key, value) {
+    setConfig: function (key, value) {
         this.config[key] = value;
         localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config));
     },
 
-    
+
 
     html([first, ...string], ...values) {
         return values.reduce(
             (acc, cur) => acc.concat(cur, string.shift())
             , [first]
         )
-        .filter(x => x && x !== true || x === 0)
-        .join('')       
+            .filter(x => x && x !== true || x === 0)
+            .join('')
     },
-    
+
     renderSong() {
         this.songs = this.songPlaylists[this.currentPlaylist]
         songLists.forEach((songList, songIndex) => {
-            songList.innerHTML = app.html`${app.songs.map(function(song, index) {
+            songList.innerHTML = app.html`${app.songs.map(function (song, index) {
                 return app.html`
                     <div class="playlist__list-song media ${app.currentIndex === index ? 'active' : ''}" data-index="${index}">
                         <div class="playlist__song-info media__left">
@@ -220,11 +220,11 @@ const app = {
                             <div class="playlist__song-body media__info">
                                 <span class="playlist__song-title info__title">${song.name}</span>
                                 <p class="playlist__song-author info__author">
-                                    ${song.singer.map((singer,index) => {
-                                        return app.html`
+                                    ${song.singer.map((singer, index) => {
+                    return app.html`
                                         <a href="#" class="is-ghost">${singer}</a>${index < song.singer.length - 1 && ', '}
                                         `
-                                    })}
+                })}
                                 </p>
                             </div>
                         </div>
@@ -258,7 +258,7 @@ const app = {
                     </div>
                 </div>
                 ${app.playlists.map((playlist, index) => {
-                    return app.html`
+                return app.html`
                         <div class="col l-2-4 m-3 c-4 ${playlistIndex === 1 && 'mb-30'}">
                             <div class="row__item item--playlist">
                                 <div class="row__item-container flex--top-left">
@@ -287,15 +287,15 @@ const app = {
                             </div>
                         </div>
                     `
-                })}`
+            })}`
         })
     },
 
     renderAlbum() {
         albumLists.forEach((albumList, albumIndex) => {
             albumList.innerHTML = app.html`
-                ${app.albums.map((album,index) => {
-                    return app.html`
+                ${app.albums.map((album, index) => {
+                return app.html`
                         <div class="col l-2-4 m-3 c-4 ${albumIndex === 1 && 'mb-30'}">
                             <div class="row__item item--album">
                                 <div class="row__item-container flex--top-left">
@@ -323,7 +323,7 @@ const app = {
                             </div>
                         </div>
                     `
-                })}
+            })}
             `
         })
     },
@@ -332,7 +332,7 @@ const app = {
         mvLists.forEach((mvList, mvIndex) => {
             mvList.innerHTML = app.html`
                 ${app.mvs.map((mv, index) => {
-                    return app.html`
+                return app.html`
                         <div class="col l-4 m-6 c-12 ${mvIndex === 1 && 'mb-30'}">
                             <div class="row__item item--mv">
                                 <div class="row__item-container flex--top-left">
@@ -358,10 +358,10 @@ const app = {
                                                 <span class="info__title is-active is-twoline">${mv.name}</span>
                                                 <p class="info__author">
                                                     ${mv.author.map((author, index) => {
-                                                        return app.html`
-                                                            <a href="#" class="is-ghost">${author}</a>${index < mv.author.length -1 && ', '}
+                    return app.html`
+                                                            <a href="#" class="is-ghost">${author}</a>${index < mv.author.length - 1 && ', '}
                                                         `
-                                                    })}
+                })}
                                                 </p>
                                             </div>
                                         </div>
@@ -370,7 +370,7 @@ const app = {
                             </div>
                         </div>
                     `
-                })}
+            })}
             `
         })
     },
@@ -379,7 +379,7 @@ const app = {
         artistLists.forEach((artistList, artistIndex) => {
             artistList.innerHTML = app.html`
                 ${app.artists.map((artist, index) => {
-                    return app.html`
+                return app.html`
                         <div class="col l-2-4 m-3 c-6 ${artistIndex === 1 && 'mb-30'}">
                             <div class="row__item item--artist">
                                 <div class="row__item-container flex--top-left">
@@ -415,15 +415,15 @@ const app = {
                             </div>
                         </div>
                     `
-                })}
+            })}
             `
         })
     },
 
     renderModalTheme() {
         themeContainer.innerHTML = app.html`
-            ${this.themeLists.map((themeList, themeIndex)=> {
-                return app.html`
+            ${this.themeLists.map((themeList, themeIndex) => {
+            return app.html`
                     <div class="row sm-gutter theme__list">
                         <div class="col l-12 m-12 c-12">
                             <div class="theme__container-info">
@@ -431,7 +431,7 @@ const app = {
                             </div>
                         </div>
                         ${themeList.themes.map((theme, index) => {
-                            return app.html`
+                return app.html`
                                 <div class="col l-2 m-4 c-6 mb-20">
                                     <div class="theme__container-item" data-index="${index}">
                                         <div class="theme__item-display row__item-display br-5">
@@ -452,10 +452,10 @@ const app = {
                                     </div>
                                 </div>
                             `
-                        })}
+            })}
                     </div>
                 `
-            })}
+        })}
         
         `
     },
@@ -472,7 +472,7 @@ const app = {
                     </div>
                 </div>
                 ${this.exploreSlides.map((exploreSlide, index) => {
-                    return app.html`
+                return app.html`
                         <div 
                             class="col l-4 m-4 c-6 explore__slide-item 
                             ${index === 0 && 'first next'} 
@@ -487,7 +487,7 @@ const app = {
                             </div>
                         </div>
                     `
-                })}
+            })}
             `
         })
     },
@@ -496,7 +496,7 @@ const app = {
         radioLists.forEach((radioContainer, radioIndex) => {
             radioContainer.innerHTML = app.html`
                 ${this.radios.map((radio, index) => {
-                    return app.html`
+                return app.html`
                         <div class="col l-1-7 m-2-4 c-3">
                             <div class="row__item item--radio">
                                 <div class="row__item-container flex--top-left">
@@ -533,7 +533,7 @@ const app = {
                             </div>
                         </div>
                     `
-                })}
+            })}
             `
         })
     },
@@ -542,7 +542,7 @@ const app = {
         labelContainers.forEach((labelContainer, labelIndex) => {
             labelContainer.innerHTML = app.html`
                 ${this.labels.map((label, index) => {
-                    return app.html`
+                return app.html`
                         <div class="col l-4 m-4 c-6 mb-30">
                             <div class="row__item item--label">
                                 <div class="row__item-container flex--top-left">
@@ -553,7 +553,7 @@ const app = {
                             </div>
                         </div>
                     `
-                })}
+            })}
             `
         })
     },
@@ -570,14 +570,14 @@ const app = {
                     </div>
                 </div>
                 ${this.singerSlides.map((singerSlide, index) => {
-                    return app.html`
+                return app.html`
                         <div class="col l-2-4 m-3 c-4 row-item singer__slide-item">
                             <div class="row__item-display">
                                 <div class="singer__slide-img img--singer-slide" style="background: url('${singerSlide.image}') no-repeat center center / cover"></div>
                             </div>
                         </div>
                     `
-                })}
+            })}
             `
         })
     },
@@ -586,7 +586,7 @@ const app = {
         eventLists.forEach((eventList, eventIndex) => {
             eventList.innerHTML = app.html`
                 ${this.events.map((event, index) => {
-                    return app.html`
+                return app.html`
                         <div class="col l-4 m-6 c-12">
                             <div class="row__item item--event">
                                 <div class="row__item-container flex--top-left">
@@ -605,12 +605,12 @@ const app = {
                                                 <span class="info__title event--title is-active">Lượt chúc mừng</span>
                                                 <div class="info__avatar">
                                                     ${event.fans.map(fan => {
-                                                        return app.html`
+                    return app.html`
                                                             <div class="info__avatar-item">
                                                                 <div class="info__avatar-img" style="background: url('${fan}') no-repeat center center / cover"></div>
                                                             </div>
                                                         `
-                                                    })}
+                })}
                                                     <div class="info__avatar-item">
                                                         <p class="info__avatar-text">+${event.fanAmount}</p>
                                                     </div>
@@ -628,7 +628,7 @@ const app = {
                             </div>
                         </div>
                     `
-                })}
+            })}
             `
         })
     },
@@ -637,7 +637,7 @@ const app = {
         newPlaylistLists.forEach((newPlaylistList, playlistIndex) => {
             newPlaylistList.innerHTML = app.html`
                 ${this.newPlaylists.map((newPlaylist, index) => {
-                    return app.html`
+                return app.html`
                         <div class="col l-4 m-6 c-12">
                             <div class="row__item item--new-playlist">
                                 <div class="row__item-container flex--top-left">
@@ -656,10 +656,10 @@ const app = {
                                         <a href="#" class="row__info-name is-twoline">${newPlaylist.name}</a>
                                         <h3 class="row__info-creator">
                                             ${newPlaylist.singer.map((singer, index) => {
-                                                return app.html`
+                    return app.html`
                                                     <a href="#" class="is-ghost">${singer}</a>${index < newPlaylist.singer.length - 1 && ','}
                                                 `
-                                            })}
+                })}
                                             
                                         </h3>
                                         <div class="row__item-detail">
@@ -671,7 +671,7 @@ const app = {
                             </div>
                         </div>
                     `
-                })}
+            })}
                 
                 <div class="col l-4 m-6 c-12">
                     <div class="row__item item--new-playlist">
@@ -688,7 +688,7 @@ const app = {
         favArtistLists.forEach((favArtistList, artistIndex) => {
             favArtistList.innerHTML = app.html`
                 ${this.favArtists.map((favArtist, index) => {
-                    return app.html`
+                return app.html`
                         <div class="col l-4 m-6 c-6">
                             <div class="row__item item--fav-artist">
                                 <div class="row__item-container flex--top-left">
@@ -708,12 +708,12 @@ const app = {
                                             <p class="display__content-artist is-oneline">${favArtist.name}</p>
                                             <div class="display__content-list">
                                                 ${favArtist.songs.map((song, index) => {
-                                                    return app.html`
+                    return app.html`
                                                         <div class="display__content-list-song">
                                                             <div class="display__content-song-img" style="background: url('${song}') no-repeat center center / cover"></div>
                                                         </div>
                                                     `
-                                                })}
+                })}
                                             </div>
                                         </div>
                                     </div>
@@ -721,7 +721,7 @@ const app = {
                             </div>
                         </div>
                     `
-                })}
+            })}
             `
         })
     },
@@ -730,7 +730,7 @@ const app = {
         brandLists.forEach((brandList, brandIndex) => {
             brandList.innerHTML = app.html`
                 ${this.brands.map((brand, index) => {
-                    return app.html`
+                return app.html`
                         <div class="col l-1-5 m-3 c-4 container__footer-brand-item mb-30">
                             <div class="footer__brand-container">
                                 <div class="container__footer-brand-background img--rec"></div>
@@ -738,11 +738,11 @@ const app = {
                             </div>
                         </div>
                     `
-                })}
+            })}
             `
         })
     },
-    
+
     renderSpecialPlaylist() {
         specialPlaylistLists.forEach((specialPlaylistList, playlistListIndex) => {
             specialPlaylistList.innerHTML = app.html`
@@ -764,7 +764,7 @@ const app = {
                 <div class="col l-12 m-12 c-12">
                     <div class="row no-wrap special-playlist--container">
                         ${app.specialPlaylists[playlistListIndex].playlists.map((playlist, index) => {
-                            return app.html`
+                return app.html`
                                 <div class="col l-2-4 m-3 c-4">
                                     <div class="row__item item--playlist">
                                         <div class="row__item-container flex--top-left">
@@ -789,17 +789,17 @@ const app = {
                                                 <a href="#" class="row__info-name ${playlistListIndex < 2 && 'is-oneline' || 'is-twoline'}">${playlist.name}</a>
                                                 <p class="info__artist">
                                                     ${playlist.artists.map((artist, artistIndex) => {
-                                                        return app.html`
-                                                            <a href="#" class="is-ghost">${artist}</a>${artistIndex < playlist.artists.length -1 && ', '}
+                    return app.html`
+                                                            <a href="#" class="is-ghost">${artist}</a>${artistIndex < playlist.artists.length - 1 && ', '}
                                                         `
-                                                    })}
+                })}
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             `
-                        })}
+            })}
                     </div>
                 </div>
             `
@@ -822,7 +822,7 @@ const app = {
                 <div class="col l-12 m-12 c-12">
                     <div class="row ${playlistListIndex !== 7 && 'no-wrap'} normal-playlist--container">
                         ${app.normalPlaylists[playlistListIndex].playlists.map((playlist, index) => {
-                            return app.html`
+                return app.html`
                                 <div class="col l-2-4 m-3 c-4 ${playlistListIndex === 7 && 'mb-30'}">
                                     <div class="row__item item--playlist">
                                         <div class="row__item-container flex--top-left">
@@ -847,14 +847,14 @@ const app = {
                                                 ${playlistListIndex != 3 && app.html`
                                                     <a href="#" class="row__info-name ${playlistListIndex != 5 && playlistListIndex != 7 && "is-oneline" || "is-twoline"}">${playlist.name}</a>
                                                 `
-                                                }
+                    }
                                                 ${playlistListIndex != 5 && app.html`
                                                     <p class="info__artist">
                                                         ${playlist.artists.map((artist, artistIndex) => {
-                                                            return app.html`
-                                                                <a href="#" class="${playlistListIndex != 1 && playlistListIndex != 2 && 'is-ghost' || 'is-description'}">${artist}</a>${artistIndex < playlist.artists.length -1 && ', '}
+                        return app.html`
+                                                                <a href="#" class="${playlistListIndex != 1 && playlistListIndex != 2 && 'is-ghost' || 'is-description'}">${artist}</a>${artistIndex < playlist.artists.length - 1 && ', '}
                                                             `
-                                                        })}
+                    })}
                                                     </p>
                                                 `}
                                             </div>
@@ -862,7 +862,7 @@ const app = {
                                     </div>
                                 </div>
                             `
-                        })}
+            })}
                     </div>
                 </div>
             `
@@ -882,16 +882,16 @@ const app = {
                                 <div class="container__playlist">
                                     <div class="playlist__list-charts overflow-visible">
                                         ${this.listSongCharts.map((song, songIndex) => {
-                                            return app.html`
+            return app.html`
                                                 <div class="playlist__list-song media ${songIndex > 9 && 'song--not-expand'} ">
                                                     <div class="playlist__song-info media__left">
                                                         <div class="playlist__song-rank">
                                                             <div
                                                                 class="playlist__rank-number 
-                                                                ${songIndex === 0 &&'is-outline--blue'}
-                                                                ${songIndex === 1 &&'is-outline--green'}
-                                                                ${songIndex === 2 &&'is-outline--red'}
-                                                                ${songIndex > 2 &&'is-outline--text'}
+                                                                ${songIndex === 0 && 'is-outline--blue'}
+                                                                ${songIndex === 1 && 'is-outline--green'}
+                                                                ${songIndex === 2 && 'is-outline--red'}
+                                                                ${songIndex > 2 && 'is-outline--text'}
                                                             ">
                                                                 ${song.rank}
                                                             </div>
@@ -914,10 +914,10 @@ const app = {
                                                             <span class="playlist__song-title info__title">${song.name}</span>
                                                             <p class="playlist__song-author info__author">
                                                                 ${song.singers.map((singer, index) => {
-                                                                    return app.html`
+                return app.html`
                                                                         <a href="#" class="is-ghost">${singer}</a>${index < song.singers.length - 1 && ', '}
                                                                     `
-                                                                })}
+            })}
                                                             </p>
                                                         </div>
                                                     </div>
@@ -935,7 +935,7 @@ const app = {
                                                     </div>
                                                 </div>
                                             `
-                                        })}
+        })}
                                     </div>
                                 </div>
                             </div>
@@ -950,7 +950,7 @@ const app = {
         postLists.forEach((postList, postIndex) => {
             postList.innerHTML = app.html`
                 ${this.posts[postIndex].map((post, index) => {
-                    return app.html`
+                return app.html`
                         <div class="story__item mb-30">
                             <div class="story__item-container">
                                 <div class="story__item-header">
@@ -1001,34 +1001,34 @@ const app = {
                             </div>
                         </div>
                     `
-                })}
+            })}
             `
         })
     },
-    renderLyric: async function lyric(lyricId){
+    renderLyric: async function lyric(lyricId) {
         console.log(lyricId)
         let apiLyric = `https://music-player-pink.vercel.app/api/lyric?id=${lyricId}`;
         let data = await fetch(apiLyric)
             .then(res => res.json())
-            if(data.err == 0){
-                lyricContent.innerHTML = app.html`
-                    ${data.data.sentences.map(item=>{
-                        return app.html `<ul class="list-lyric">
-                            <li>${item.words.map(word=>{
-                                return word.data+' '
-                            })}</li>
+        if (data.err == 0) {
+            lyricContent.innerHTML = app.html`
+                    ${data.data.sentences.map(item => {
+                return app.html`<ul class="list-lyric">
+                            <li>${item.words.map(word => {
+                    return word.data + ' '
+                })}</li>
                         </ul>`
-                    })}
+            })}
                 `
-            }else{
-                lyricContent.innerHTML = app.html`<ul class="list-lyric">
+        } else {
+            lyricContent.innerHTML = app.html`<ul class="list-lyric">
                         <li>Lời bài hát chưa được cập nhật</li>
                     </ul>`
-            }
-        },
+        }
+    },
 
 
-    render : function() {
+    render: function () {
         // Render songs
         this.renderSong()
 
@@ -1037,7 +1037,7 @@ const app = {
 
         // Render albums
         this.renderAlbum()
-        
+
         // Render MV
         this.renderMV()
 
@@ -1087,16 +1087,16 @@ const app = {
 
     },
 
-    defineProperties: function() {
+    defineProperties: function () {
         Object.defineProperty(this, 'currentSong', {
-            get: function() {
+            get: function () {
                 return this.songs[this.currentIndex];
             }
         })
     },
 
 
-    handleEvents: function() {
+    handleEvents: function () {
         const _this = this;
         const playBtns = Array.from($$('.btn-toggle-play.btn--play-song'));
         const listThemes = Array.from($$('.theme__container .theme__list'));
@@ -1116,22 +1116,23 @@ const app = {
         const lyricBtn = $('.lyric')
         const karaoke = $('.karaoke')
         const nowPlayingContent = $('.content-now-playing')
+        const searchContainer = $('.app__header-container')
         //handle player-tab
-        lyricBtn.onclick = function(){
+        lyricBtn.onclick = function () {
             nowPlayingContent.classList.add('hide')
             lyricContent.classList.remove('hide')
             nowPlayingBtn.classList.remove('active')
             lyricBtn.classList.add('active')
         }
-        
 
-        nowPlayingBtn.onclick = function(){
+
+        nowPlayingBtn.onclick = function () {
             nowPlayingContent.classList.remove('hide')
             lyricContent.classList.add('hide')
             nowPlayingBtn.classList.add('active')
             lyricBtn.classList.remove('active')
         }
-        karaoke.onclick = function(){
+        karaoke.onclick = function () {
             showNotificationToast('Chức năng này chưa hoàn thiện!')
         }
 
@@ -1140,28 +1141,28 @@ const app = {
         const searchBtn = document.querySelector('.search-btn')
         const contentSearch = document.querySelector('.content-search')
 
-        async function sound(id){
+        async function sound(id) {
             let apiSound = `https://music-player-pink.vercel.app/api/song?id=${id}`
             let data = await fetch(apiSound)
-                .then(res=> res.json())
-            if(data.err == 0){
+                .then(res => res.json())
+            if (data.err == 0) {
                 audio.src = `${data.data[128]}`
                 audio.play()
-            }else{
-                showNotificationToast('Không thể phát bài hát này','Cảnh báo','warning')
+            } else {
+                showNotificationToast('Không thể phát bài hát này', 'Cảnh báo', 'warning')
                 audio.src = ''
             }
         }
 
-        async function Music(){
+        async function Music() {
             let value = searchInput.value
             let apiURL = `https://music-player-pink.vercel.app/api/search?keyword=${value}`;
             let data = await fetch(apiURL)
-                .then(res=> res.json()) 
-            if(data.err == 0){
+                .then(res => res.json())
+            if (data.err == 0) {
                 contentSearch.innerHTML = app.html`<div class="search-box">
-                    ${data.data.songs.map((item)=>{
-                        return app.html`<div class="playlist__song-info media__left margin  music">
+                    ${data.data.songs.map((item) => {
+                    return app.html`<div class="playlist__song-info media__left margin  music">
                             <div class="playlist__song-thumb media__thumb mr-10" style="background: url('${item.thumbnail}') no-repeat center center / cover">
                                 <div class="play-song--actions">
                                     <div class="control-btn btn-toggle-play btn--play-song">
@@ -1174,13 +1175,13 @@ const app = {
                                 <p class="playlist__song-author info__author title-search">${item.artistsNames}</p>
                             </div>
                         </div>`
-                    })}
+                })}
                     </div>`
-                }
+            }
             let currentId = 0;
             const musics = document.querySelectorAll('.music')
-            musics.forEach((item,index)=>{
-                item.addEventListener('click',function(){
+            musics.forEach((item, index) => {
+                item.addEventListener('click', function () {
                     currentId = data.data.songs[index].encodeId
                     document.title = data.data.songs[index].title
                     sound(currentId)
@@ -1210,20 +1211,21 @@ const app = {
             })
         }
 
-    searchBtn.onclick = (e)=>{
-        e.preventDefault()
-        Music()
-    }
-    searchInput.addEventListener('keypress',function(e){
-        if(e.code === 'Enter'){
-            searchBtn.click()
+        searchBtn.onclick = (e) => {
+            e.preventDefault()
+            searchContainer.classList.remove('hide')
+            Music()
         }
-    })
+        searchInput.addEventListener('keypress', function (e) {
+            if (e.code === 'Enter') {
+                searchBtn.click()
+            }
+        })
 
         // hide and visible shadow of subnav on sidebar
         sidebarSubnav.onscroll = (e) => {
             const scrollTop = sidebarSubnav.scrollY || sidebarSubnav.scrollTop
-            if(scrollTop > 10) {
+            if (scrollTop > 10) {
                 sidebarSubnav.classList.add('has-mask')
             } else {
                 sidebarSubnav.classList.remove('has-mask')
@@ -1231,32 +1233,32 @@ const app = {
         }
 
         //handle show Mv
-        playMvs.forEach(function(item,index){
-            item.addEventListener('click',function(){
+        playMvs.forEach(function (item, index) {
+            item.addEventListener('click', function () {
                 currentIndex = index
                 galleryShow(app.mvs)
-          })
+            })
         })
         // handle play alBum
-        playAlbums.forEach(function(item,index){
-            item.addEventListener('click',function(){
+        playAlbums.forEach(function (item, index) {
+            item.addEventListener('click', function () {
                 currentIndex = index
                 galleryShow(app.albums)
             })
         })
 
-        function galleryShow(data){
-            iframe.setAttribute('src',data[currentIndex].videoUrl)
+        function galleryShow(data) {
+            iframe.setAttribute('src', data[currentIndex].videoUrl)
             overlay.classList.add('show')
         }
-        
-        
-        
-        closeMv.addEventListener('click',function(){
-             overlay.classList.remove('show')
+
+
+
+        closeMv.addEventListener('click', function () {
+            overlay.classList.remove('show')
         })
-        document.addEventListener('keydown',function(e){
-            if(e.keyCode == 27){
+        document.addEventListener('keydown', function (e) {
+            if (e.keyCode == 27) {
                 closed.click()
             }
         })
@@ -1264,9 +1266,9 @@ const app = {
 
         // Set background for header when scroll
         appContainers.forEach(appContainer => {
-            appContainer.onscroll = function() {
+            appContainer.onscroll = function () {
                 const scrollTop = appContainer.scrollY || appContainer.scrollTop;
-                if(scrollTop > 5) {
+                if (scrollTop > 5) {
                     Object.assign(header.style, {
                         backgroundColor: 'var(--layout-bg)',
                         boxShadow: '0 1px 1px rgba(0, 0, 0, 0.08)',
@@ -1282,8 +1284,8 @@ const app = {
 
         // Handle when click play
         playBtns.forEach(playBtn => {
-            playBtn.onclick = function() {
-                if(_this.isPlaying) {
+            playBtn.onclick = function () {
+                if (_this.isPlaying) {
                     audio.pause();
                 } else {
                     audio.play();
@@ -1293,7 +1295,7 @@ const app = {
 
         // Handle when click play all
         playAllBtns.forEach(playAllBtn => {
-            playAllBtn.onclick = function() {
+            playAllBtn.onclick = function () {
                 _this.currentIndex = 0;
                 const songActives = $$(`.playlist__list-song[data-index="${_this.currentIndex}"]`)
                 _this.loadCurrentSong();
@@ -1310,7 +1312,7 @@ const app = {
         })
 
         // When the song is played
-        audio.onplay = function() {
+        audio.onplay = function () {
             const songActives = Array.from($$('.playlist__list-song.active'))
             _this.isPlaying = true;
             songActives.forEach(songActive => {
@@ -1324,9 +1326,9 @@ const app = {
             _this.titleAnimate(songAnimateTitles[0]).play();
             _this.titleAnimate(songAnimateTitles[1]).play();
         }
-        
+
         // When the song is paused
-        audio.onpause = function() {
+        audio.onpause = function () {
             const songActives = Array.from($$('.playlist__list-song.active'))
             _this.isPlaying = false;
             songActives.forEach(songActive => {
@@ -1340,8 +1342,8 @@ const app = {
         }
 
         // Handle next song when audio ended
-        audio.onended = function() {
-            if(_this.isRepeat) {
+        audio.onended = function () {
+            if (_this.isRepeat) {
             } else {
                 nextBtns[0].click();
             }
@@ -1350,9 +1352,9 @@ const app = {
 
 
         // When the song progress changes
-        audio.ontimeupdate = function(e) {
+        audio.ontimeupdate = function (e) {
             if (audio.duration) {
-                if(!_this.isSeeking) {
+                if (!_this.isSeeking) {
                     const listDurationTime = $('.playlist__list-song.active .playlist__song-time')
                     trackTimes.forEach(trackTime => {
                         trackTime.innerHTML = _this.audioCalTime(audio.currentTime);
@@ -1363,7 +1365,7 @@ const app = {
                     progressTracks.forEach(progressTrack => {
                         progressTrack.style.width = Math.round(audio.currentTime / audio.duration * 100) + '%';
                     })
-                    if(listDurationTime.innerText === '--/--' || listDurationTime.innerText === '') {
+                    if (listDurationTime.innerText === '--/--' || listDurationTime.innerText === '') {
                         _this.durationList[_this.currentPlaylist].splice(_this.currentIndex, 1, _this.audioCalTime(audio.duration))
                         localStorage.setItem(DURATION_STORAGE_KEY, JSON.stringify(_this.durationList));
                         listDurationTime.innerHTML = _this.durationList[_this.currentPlaylist][_this.currentIndex];
@@ -1375,17 +1377,17 @@ const app = {
             } else {
                 // Handling when seek
                 progress.forEach(progressChild => {
-                    progressChild.onchange = function(e) {
+                    progressChild.onchange = function (e) {
                         const seekTime = e.target.value * audio.duration / 100;
                         audio.currentTime = seekTime;
                     }
                 })
             }
         }
-        
+
         // Method 2 to seek
         function currentTime() {
-            if(_this.isSeeking) {
+            if (_this.isSeeking) {
                 let seekTime;
                 progress.forEach(progressChild => {
                     progressChild.oninput = (e) => {
@@ -1408,7 +1410,7 @@ const app = {
 
 
         function seekStart() {
-            if(audio.duration) {
+            if (audio.duration) {
                 _this.isSeeking = true;
             }
         }
@@ -1429,12 +1431,12 @@ const app = {
         })
 
 
-        
+
 
         //  Handle CD spins / stops
         _this.smoothAnimation(popUpCdThumb)
         const popUpCdThumbAnimate = popUpCdThumb.animate([
-            { transform: 'rotate(360deg)'}
+            { transform: 'rotate(360deg)' }
         ], {
 
             duration: 15000, // 10000 seconds
@@ -1442,15 +1444,15 @@ const app = {
         })
         popUpCdThumbAnimate.pause()
         //ưhen click trình phat nhạc
-        miniplayer.onclick = function(){
+        miniplayer.onclick = function () {
             player.click();
         }
-        
+
 
         // When next song
         nextBtns.forEach(nextBtn => {
-            nextBtn.onclick = function() {
-                if(_this.isRandom) {
+            nextBtn.onclick = function () {
+                if (_this.isRandom) {
                     _this.playRandomSong()
                 } else {
                     _this.nextSong();
@@ -1463,8 +1465,8 @@ const app = {
 
         // When prev song
         prevBtns.forEach(prevBtn => {
-            prevBtn.onclick = function() {
-                if(_this.isRandom) {
+            prevBtn.onclick = function () {
+                if (_this.isRandom) {
                     _this.playRandomSong();
                 } else {
                     _this.prevSong();
@@ -1477,7 +1479,7 @@ const app = {
 
         // Handling on / off random song
         randomBtns.forEach(randomBtn => {
-            randomBtn.onclick = function() {
+            randomBtn.onclick = function () {
                 _this.isRandom = !_this.isRandom;
                 _this.setConfig('isRandom', _this.isRandom)
                 randomBtns.forEach(randomBtn => {
@@ -1488,7 +1490,7 @@ const app = {
 
         // Single-parallel repeat processing
         repeatBtns.forEach(repeatBtn => {
-            repeatBtn.onclick = function() {
+            repeatBtn.onclick = function () {
                 _this.isRepeat = !_this.isRepeat;
                 _this.setConfig('isRepeat', _this.isRepeat)
                 repeatBtns.forEach(repeatBtn => {
@@ -1511,12 +1513,12 @@ const app = {
             const optionNode = e.target.closest('.player__container .player__options-container')
             const popUpNode = e.target.closest('.player .player__popup')
             const popDownBtn = e.target.closest('.popup__action-btn.btn--pop-down')
-            if(!player.classList.contains('open-popup') &&!actionNode &&!authorNode && !controlNode && !progressNode && !optionNode && !popUpNode) {
+            if (!player.classList.contains('open-popup') && !actionNode && !authorNode && !controlNode && !progressNode && !optionNode && !popUpNode) {
                 player.classList.add('open-popup')
             }
             // Handle close pop-up window
-            if(popUpNode) {
-                if(popDownBtn) {
+            if (popUpNode) {
+                if (popDownBtn) {
                     player.classList.remove('open-popup')
                 }
             }
@@ -1524,16 +1526,16 @@ const app = {
 
         // Listen to playlist clicks
         songLists.forEach(songList => {
-            songList.onclick = function(e) {
+            songList.onclick = function (e) {
                 const checkNode = e.target.closest('.playlist__list-song:not(.active) .playlist__song-check')
                 const songNode = e.target.closest('.playlist__list-song:not(.active)');
                 const optionNode = e.target.closest('.playlist__song-option')
                 const heartIconBtn = e.target.closest('.song-btn--heart');
                 const micIconBtn = e.target.closest('.btn--mic')
 
-                if(songNode && !optionNode && !checkNode) {
+                if (songNode && !optionNode && !checkNode) {
                     // Handle when clicking on the song
-                    if(songNode) {
+                    if (songNode) {
                         _this.currentIndex = Number(songNode.dataset.index);
                         const songActives = $$(`.playlist__list-song[data-index="${_this.currentIndex}"]`)
                         _this.loadCurrentSong();
@@ -1550,29 +1552,29 @@ const app = {
 
 
                 //Handle when click on song checkbox
-                if(checkNode) {
-                    checkNode.onclick = function(e) {
+                if (checkNode) {
+                    checkNode.onclick = function (e) {
                         const inputCheck = e.target.closest('.playlist__song-check').querySelector('.mr-10')
                         e.target.closest('.playlist__list-song').classList.toggle('active', inputCheck.checked)
                     }
                 }
 
-    
+
                 // Handle when clicking on the song option
-                if(optionNode) {
-                
+                if (optionNode) {
+
                 }
                 // Handle when click on icons heart
-                if(heartIconBtn) {
+                if (heartIconBtn) {
                     const heartIcon = heartIconBtn.firstElementChild
-                    if(heartIcon.classList.contains('primary')) heartIcon.classList.replace('bi-heart-fill', 'bi-heart')
+                    if (heartIcon.classList.contains('primary')) heartIcon.classList.replace('bi-heart-fill', 'bi-heart')
                     else heartIcon.classList.replace('bi-heart', 'bi-heart-fill')
                     heartIcon.classList.toggle('primary')
                 }
-                
- 
+
+
                 //Handle when click on icons micro
-                if(micIconBtn) {
+                if (micIconBtn) {
                     const micIcon = micIconBtn.firstElementChild
                     micIcon.classList.toggle('primary')
                 }
@@ -1581,7 +1583,7 @@ const app = {
 
         //Handle adjust volume change
         function changeVolume(index) {
-            if(audio.volume * 100 != volumes[index].value) {
+            if (audio.volume * 100 != volumes[index].value) {
                 audio.volume = volumes[index].value / 100;
                 volumeTracks.forEach(volumeTrack => {
                     volumeTrack.style.width = volumes[index].value + '%';
@@ -1602,10 +1604,10 @@ const app = {
         volumeBtns.forEach((volumeBtn, index) => {
             volumeBtn.onclick = (e) => {
                 let currentVolume;
-                if(audio.volume > 0) {
+                if (audio.volume > 0) {
                     currentVolume = 0;
                 } else {
-                    if(volumes[index].value > 0) {
+                    if (volumes[index].value > 0) {
                         currentVolume = volumes[index].value
                     } else {
                         currentVolume = 100;
@@ -1631,9 +1633,9 @@ const app = {
             }
         })
 
-        
+
         volumes.forEach((volume, index) => {
-            volume.onchange = function(e) {
+            volume.onchange = function (e) {
                 changeVolume(index);
             }
             volume.onmousedown = (e) => {
@@ -1642,21 +1644,21 @@ const app = {
             volume.onmouseup = () => {
                 _this.isChangeVolume = false;
             }
-            volume.onmousemove = function(e) {
-                if(_this.isChangeVolume === true) {
+            volume.onmousemove = function (e) {
+                if (_this.isChangeVolume === true) {
                     changeVolume(index);
                     e.stopPropagation();
                 }
             }
             // Use addEventListener to fix the bug when the first loading
-            volume.addEventListener('touchstart', function(e) {
+            volume.addEventListener('touchstart', function (e) {
                 _this.isChangeVolume = true;
             })
-            volume.addEventListener('touchend', function(e) {
+            volume.addEventListener('touchend', function (e) {
                 _this.isChangeVolume = false;
             })
-            volume.addEventListener('touchmove', function(e) {
-                if(_this.isChangeVolume === true) {
+            volume.addEventListener('touchmove', function (e) {
+                if (_this.isChangeVolume === true) {
                     changeVolume(index);
                     e.stopPropagation();
                 }
@@ -1670,13 +1672,13 @@ const app = {
             const slideImgFirst = $('.container__slide-item.first')
             const slideImgSecond = $('.container__slide-item.second')
             const slideImgThird = slideImgs[imgIndex]
-            const slideImgFourth = slideImgs[imgIndex === slideImgs.length -1 ?  0 : imgIndex + 1]
+            const slideImgFourth = slideImgs[imgIndex === slideImgs.length - 1 ? 0 : imgIndex + 1]
             slideImgFourth.classList.replace('fourth', 'third')
             slideImgThird.classList.replace('third', 'second')
             slideImgSecond.classList.replace('second', 'first')
             slideImgFirst.classList.replace('first', 'fourth')
             imgIndex++;
-            if(imgIndex >= slideImgs.length) { //imgIndex: 0-7, slideImgs.length: 8
+            if (imgIndex >= slideImgs.length) { //imgIndex: 0-7, slideImgs.length: 8
                 imgIndex = 0;
             }
             setTimeout(slideShow, 2000)
@@ -1685,19 +1687,19 @@ const app = {
         slideShow();
 
 
-        
+
         // Handle when click on navbar
         navbarItems.forEach((navbarItem, index) => {
-            navbarItem.onclick = function() {
+            navbarItem.onclick = function () {
                 $('.content__navbar-item.active').classList.remove('active')
                 navbarItem.classList.add('active')
-                
+
                 $('.container__tab.active').classList.remove('active')
                 containerTabs[index].classList.add('active')
             }
         })
 
-        Array.from(headerNavTitles).forEach((headerNavTitle,index) => {
+        Array.from(headerNavTitles).forEach((headerNavTitle, index) => {
             headerNavTitle.onclick = (e) => {
                 appContainers[0].scrollTop = 0
                 $('.content__navbar-item.active').classList.remove('active')
@@ -1711,62 +1713,62 @@ const app = {
 
         //***  Handle when click button move Album, Playlist, MV and Artist on tab HOME
         // Playlist
-        
-        playlistScrollBtns[0].onclick = function() {
+
+        playlistScrollBtns[0].onclick = function () {
             _this.showSlides(-5, 0, playlistLists[0], playlistScrollBtns)
         }
 
-        playlistScrollBtns[1].onclick = function() {
-            _this.showSlides(5, 0, playlistLists[0],playlistScrollBtns)
+        playlistScrollBtns[1].onclick = function () {
+            _this.showSlides(5, 0, playlistLists[0], playlistScrollBtns)
         }
 
         // Album
-        albumScrollBtns[0].onclick = function() {
-            _this.showSlides(-5, 1, albumLists[0],albumScrollBtns)
+        albumScrollBtns[0].onclick = function () {
+            _this.showSlides(-5, 1, albumLists[0], albumScrollBtns)
         }
 
-        albumScrollBtns[1].onclick = function() {
-            _this.showSlides(5, 1, albumLists[0],albumScrollBtns)
+        albumScrollBtns[1].onclick = function () {
+            _this.showSlides(5, 1, albumLists[0], albumScrollBtns)
         }
 
         // MV
-        mvScrollBtns[0].onclick = function() {
-            _this.showSlides(-3, 2, mvLists[0],mvScrollBtns)
+        mvScrollBtns[0].onclick = function () {
+            _this.showSlides(-3, 2, mvLists[0], mvScrollBtns)
         }
-        
-        mvScrollBtns[1].onclick = function() {
-            _this.showSlides(3, 2, mvLists[0],mvScrollBtns)
+
+        mvScrollBtns[1].onclick = function () {
+            _this.showSlides(3, 2, mvLists[0], mvScrollBtns)
         }
 
         // Artist
-        artistScrollBtns[0].onclick = function() {
-            _this.showSlides(-5, 3, artistLists[0],artistScrollBtns)
+        artistScrollBtns[0].onclick = function () {
+            _this.showSlides(-5, 3, artistLists[0], artistScrollBtns)
         }
 
-        artistScrollBtns[1].onclick = function() {
-            _this.showSlides(5, 3, artistLists[0],artistScrollBtns)
+        artistScrollBtns[1].onclick = function () {
+            _this.showSlides(5, 3, artistLists[0], artistScrollBtns)
         }
 
         // Explore radio
-        exploreRadioMoveBtns[0].onclick = function() {
+        exploreRadioMoveBtns[0].onclick = function () {
             _this.showSlides(-7, 4, radioLists[0], exploreRadioMoveBtns)
         }
 
-        exploreRadioMoveBtns[1].onclick = function() {
+        exploreRadioMoveBtns[1].onclick = function () {
             _this.showSlides(7, 4, radioLists[0], exploreRadioMoveBtns)
         }
 
         // Radio in tab Radio
-        radioTabMoveBtns[0].onclick = function() {
+        radioTabMoveBtns[0].onclick = function () {
             _this.showSlides(-7, 8, radioLists[1], radioTabMoveBtns)
         }
 
-        radioTabMoveBtns[1].onclick = function() {
+        radioTabMoveBtns[1].onclick = function () {
             _this.showSlides(7, 8, radioLists[1], radioTabMoveBtns)
         }
 
 
-        
+
         // Handle when click on Playlist Item
         const playlistItems = $$('.tab-home .playlist--container .row__item.item--playlist:not(.playlist--create)')
         Array.from(playlistItems).forEach((playlist, index) => {
@@ -1786,13 +1788,13 @@ const app = {
 
 
 
-        
+
         // Handle when click on icons heart
         const heartIconBtns = $$('.btn--heart');
         Array.from(heartIconBtns).forEach(heartIconBtn => {
             heartIconBtn.onclick = (e) => {
                 const heartIcon = heartIconBtn.firstElementChild
-                if(heartIcon.classList.contains('primary')) heartIcon.classList.replace('bi-heart-fill', 'bi-heart')
+                if (heartIcon.classList.contains('primary')) heartIcon.classList.replace('bi-heart-fill', 'bi-heart')
                 else heartIcon.classList.replace('bi-heart', 'bi-heart-fill')
                 heartIcon.classList.toggle('primary')
             }
@@ -1805,7 +1807,7 @@ const app = {
 
         modalTheme.onclick = (e) => {
             const themeContainer = e.target.closest('.modal-theme .modal-container')
-            if(themeContainer) {
+            if (themeContainer) {
                 e.stopPropagation()
             } else {
                 modalTheme.classList.remove('open')
@@ -1817,20 +1819,20 @@ const app = {
 
 
         // Handle change theme method
-        listThemes.forEach((listTheme,themeIndex) => {
+        listThemes.forEach((listTheme, themeIndex) => {
             listTheme.onclick = (e) => {
                 const applyThemeBtn = e.target.closest('.theme__actions-btn.btn--apply-theme')
                 const previewBtn = e.target.closest('.theme__actions-btn.btn--preview')
                 const themeItem = e.target.closest('.theme__container-item')
-                if(themeItem && (applyThemeBtn || previewBtn)) {
+                if (themeItem && (applyThemeBtn || previewBtn)) {
                     const currentTheme = Number(themeItem.dataset.index)
-                    if(applyThemeBtn) {
+                    if (applyThemeBtn) {
                         _this.loadThemeBg(themeIndex, currentTheme)
                         _this.setConfig('themeList', themeIndex)
                         _this.setConfig('currentTheme', currentTheme)
                         closeModalBtn.onclick()
                     }
-                    if(previewBtn) {
+                    if (previewBtn) {
                         _this.loadThemeBg(themeIndex, currentTheme)
                     }
                 }
@@ -1911,14 +1913,14 @@ const app = {
             slideMove.onclick = (e) => {
                 const prevBtn = e.target.closest('.slide__move-btn.btn--prev')
                 const nextBtn = e.target.closest('.slide__move-btn.btn--next')
-                
-                if(prevBtn) {
+
+                if (prevBtn) {
                     _this.prevSlide();
                     clearTimeout(autoMoveSlideId);
                     autoMoveSlideId = setTimeout(exploreSlideShow, 4000)
                 }
-    
-                if(nextBtn) {
+
+                if (nextBtn) {
                     _this.nextSlide();
                     clearTimeout(autoMoveSlideId);
                     autoMoveSlideId = setTimeout(exploreSlideShow, 4000)
@@ -1926,19 +1928,19 @@ const app = {
             }
 
         }
-        
+
         exploreSlideShow()
 
 
         // Singer slide on explore tab
         function singerSlideShow(step, order, index, listBtns) {
             // Automatic slide
-            if(_this.scrollToRight[order] === true) {
+            if (_this.scrollToRight[order] === true) {
                 _this.showSlides(step, order, singerSlideContainers[index], listBtns)
             } else {
                 _this.showSlides(-step, order, singerSlideContainers[index], listBtns)
             }
-            let singerSlideId = setTimeout(function() {
+            let singerSlideId = setTimeout(function () {
                 singerSlideShow(step, order, index, listBtns)
             }, 4000)
 
@@ -1946,48 +1948,48 @@ const app = {
             singerSlideContainers.forEach(singerSlideContainer => {
                 singerSlideContainer.ontouchmove = (e) => {
                     clearTimeout(singerSlideId)
-                    singerSlideId = setTimeout(function() {
+                    singerSlideId = setTimeout(function () {
                         singerSlideShow(step, order, index, listBtns)
                     }, 4000)
                 }
             })
             // Handle when click on singer slide move buttons
-            if(order === 5) {
+            if (order === 5) {
                 singerSlideMove.onclick = (e) => {
                     const prevBtn = e.target.closest('.slide__move-btn.btn--prev')
                     const nextBtn = e.target.closest('.slide__move-btn.btn--next')
-                    if(nextBtn) {
+                    if (nextBtn) {
                         _this.showSlides(step, order, singerSlideContainers[index], listBtns)
                         clearTimeout(singerSlideId)
-                        singerSlideId = setTimeout(function() {
+                        singerSlideId = setTimeout(function () {
                             singerSlideShow(step, order, index, listBtns)
                         }, 4000)
                     }
-                    if(prevBtn) {
+                    if (prevBtn) {
                         _this.showSlides(-step, order, singerSlideContainers[index], listBtns)
                         clearTimeout(singerSlideId)
-                        singerSlideId = setTimeout(function() {
+                        singerSlideId = setTimeout(function () {
                             singerSlideShow(step, order, index, listBtns)
                         }, 4000)
                     }
                 }
             }
 
-            if(order === 9) {
+            if (order === 9) {
                 followingSingerSlideMove.onclick = (e) => {
                     const prevBtn = e.target.closest('.slide__move-btn.btn--prev')
                     const nextBtn = e.target.closest('.slide__move-btn.btn--next')
-                    if(nextBtn) {
+                    if (nextBtn) {
                         _this.showSlides(step, order, singerSlideContainers[index], listBtns)
                         clearTimeout(singerSlideId)
-                        singerSlideId = setTimeout(function() {
+                        singerSlideId = setTimeout(function () {
                             singerSlideShow(step, order, index, listBtns)
                         }, 4000)
                     }
-                    if(prevBtn) {
+                    if (prevBtn) {
                         _this.showSlides(-step, order, singerSlideContainers[index], listBtns)
                         clearTimeout(singerSlideId)
-                        singerSlideId = setTimeout(function() {
+                        singerSlideId = setTimeout(function () {
                             singerSlideShow(step, order, index, listBtns)
                         }, 4000)
                     }
@@ -1996,10 +1998,10 @@ const app = {
         }
 
         // Depend on width of the screen
-        if(App.offsetWidth >= 1024) {
+        if (App.offsetWidth >= 1024) {
             singerSlideShow(5, 5, 0, listSingersBtns)
             singerSlideShow(5, 9, 1, followingListSingerBtns)
-        } else if(App.offsetWidth >= 740 && App.offsetWidth < 1024) {
+        } else if (App.offsetWidth >= 740 && App.offsetWidth < 1024) {
             singerSlideShow(4, 5, 0, listSingersBtns)
             singerSlideShow(4, 9, 1, followingListSingerBtns)
         } else {
@@ -2010,19 +2012,19 @@ const app = {
         // New playlist slide
         function newPlaylistSlideShow(step) {
             // Automatic slide
-            if(_this.scrollToRight[6] === true) {
+            if (_this.scrollToRight[6] === true) {
                 _this.showSlides(step, 6, newPlaylistLists[0], newPlaylistMoveBtns)
             } else {
                 _this.showSlides(-step, 6, newPlaylistLists[0], newPlaylistMoveBtns)
             }
-            let newPlaylistId = setTimeout(function() {
+            let newPlaylistId = setTimeout(function () {
                 newPlaylistSlideShow(step)
             }, 4000)
 
             newPlaylistLists.forEach(newPlaylistList => {
                 newPlaylistList.ontouchmove = (e) => {
                     clearTimeout(newPlaylistId)
-                    newPlaylistId = setTimeout(function() {
+                    newPlaylistId = setTimeout(function () {
                         newPlaylistSlideShow(step)
                     }, 4000)
                 }
@@ -2032,27 +2034,27 @@ const app = {
             newPlaylistMove.onclick = (e) => {
                 const prevBtn = e.target.closest('.move-btn--new-playlist.btn--prev')
                 const nextBtn = e.target.closest('.move-btn--new-playlist.btn--next')
-                if(nextBtn) {
-                        _this.showSlides(step, 6, newPlaylistLists[0], newPlaylistMoveBtns)
-                        clearTimeout(newPlaylistId)
-                        newPlaylistId = setTimeout(function() {
-                            newPlaylistSlideShow(step)
-                        }, 4000)
+                if (nextBtn) {
+                    _this.showSlides(step, 6, newPlaylistLists[0], newPlaylistMoveBtns)
+                    clearTimeout(newPlaylistId)
+                    newPlaylistId = setTimeout(function () {
+                        newPlaylistSlideShow(step)
+                    }, 4000)
                 }
-                if(prevBtn) {
-                        _this.showSlides(-step, 6, newPlaylistLists[0], newPlaylistMoveBtns)
-                        clearTimeout(newPlaylistId)
-                        newPlaylistId = setTimeout(function() {
-                            newPlaylistSlideShow(step)
-                        }, 4000)
+                if (prevBtn) {
+                    _this.showSlides(-step, 6, newPlaylistLists[0], newPlaylistMoveBtns)
+                    clearTimeout(newPlaylistId)
+                    newPlaylistId = setTimeout(function () {
+                        newPlaylistSlideShow(step)
+                    }, 4000)
                 }
             }
         }
 
         // Depend on width of the screen
-        if(App.offsetWidth >= 1024) {
+        if (App.offsetWidth >= 1024) {
             newPlaylistSlideShow(3)
-        } else if(App.offsetWidth >= 740 && App.offsetWidth < 1024) {
+        } else if (App.offsetWidth >= 740 && App.offsetWidth < 1024) {
             newPlaylistSlideShow(2)
         } else {
             newPlaylistSlideShow(1)
@@ -2061,19 +2063,19 @@ const app = {
         // Favorite artist slide
         function favArtistSlideShow(step) {
             // Automatic slide
-            if(_this.scrollToRight[7] === true) {
+            if (_this.scrollToRight[7] === true) {
                 _this.showSlides(step, 7, favArtistLists[0], favArtistMoveBtns)
             } else {
                 _this.showSlides(-step, 7, favArtistLists[0], favArtistMoveBtns)
             }
-            let favArtistId = setTimeout(function() {
+            let favArtistId = setTimeout(function () {
                 favArtistSlideShow(step)
             }, 4000)
 
             favArtistLists.forEach(favArtist => {
                 favArtist.ontouchmove = (e) => {
                     clearTimeout(favArtistId)
-                    favArtistId = setTimeout(function() {
+                    favArtistId = setTimeout(function () {
                         favArtistSlideShow(step)
                     }, 4000)
                 }
@@ -2083,25 +2085,25 @@ const app = {
             favArtistMove.onclick = (e) => {
                 const prevBtn = e.target.closest('.move-btn--fav-artist.btn--prev')
                 const nextBtn = e.target.closest('.move-btn--fav-artist.btn--next')
-                if(nextBtn) {
-                        _this.showSlides(step, 7, favArtistLists[0], favArtistMoveBtns)
-                        clearTimeout(favArtistId)
-                        favArtistId = setTimeout(function() {
-                            favArtistSlideShow(step)
-                        }, 4000)
+                if (nextBtn) {
+                    _this.showSlides(step, 7, favArtistLists[0], favArtistMoveBtns)
+                    clearTimeout(favArtistId)
+                    favArtistId = setTimeout(function () {
+                        favArtistSlideShow(step)
+                    }, 4000)
                 }
-                if(prevBtn) {
-                        _this.showSlides(-step, 7, favArtistLists[0], favArtistMoveBtns)
-                        clearTimeout(favArtistId)
-                        favArtistId = setTimeout(function() {
-                            favArtistSlideShow(step)
-                        }, 5000)
+                if (prevBtn) {
+                    _this.showSlides(-step, 7, favArtistLists[0], favArtistMoveBtns)
+                    clearTimeout(favArtistId)
+                    favArtistId = setTimeout(function () {
+                        favArtistSlideShow(step)
+                    }, 5000)
                 }
             }
         }
 
         // Depend on width of the screen
-        if(App.offsetWidth >= 1024) {
+        if (App.offsetWidth >= 1024) {
             favArtistSlideShow(3)
         } else {
             favArtistSlideShow(2)
@@ -2116,10 +2118,10 @@ const app = {
             storyAction.onclick = (e) => {
                 const btnHeart = e.target.closest('.story-btn--heart .btn--icon.icon--heart')
                 const btnComment = e.target.closest('.story-btn--comment .btn--icon.icon--comment')
-                if(btnHeart) {
+                if (btnHeart) {
                     const numberNode = btnHeart.parentElement.querySelector('.action__number')
                     const numberLike = numberNode.innerText
-                    if(btnHeart.classList.contains('primary')) {
+                    if (btnHeart.classList.contains('primary')) {
                         btnHeart.classList.remove('primary')
                         btnHeart.classList.replace('bi-heart-fill', 'bi-heart')
                         numberNode.innerText = Number(numberLike) - 1
@@ -2129,7 +2131,7 @@ const app = {
                         numberNode.innerText = Number(numberLike) + 1
                     }
                 }
-                if(btnComment) {
+                if (btnComment) {
                     showNotificationToast('Tính năng hiện tại chưa được cập nhật, bạn vui lòng thông cảm!')
                 }
             }
@@ -2138,7 +2140,7 @@ const app = {
 
     },
 
-    loadCurrentSongPlaylist (index) {
+    loadCurrentSongPlaylist(index) {
         this.songs = this.songPlaylists[index]
         this.currentIndex = 0
         this.loadCurrentSong();
@@ -2147,8 +2149,8 @@ const app = {
     },
 
     loadCurrentPlaylist(playlistBtn, index) {
-        if(playlistBtn) {
-            if(index < 3) {
+        if (playlistBtn) {
+            if (index < 3) {
                 this.currentPlaylist = index;
                 this.loadCurrentSongPlaylist(this.currentPlaylist)
                 this.setConfig('currentPlaylist', this.currentPlaylist)
@@ -2158,9 +2160,9 @@ const app = {
             }
         }
     },
-    
 
-    loadCurrentSong: function() {
+
+    loadCurrentSong: function () {
         songAnimateTitles.forEach(songAnimateTitle => {
             songAnimateTitle.innerHTML = app.html`
                     <div class="title__item">${this.currentSong.name}</div>
@@ -2173,16 +2175,16 @@ const app = {
         authors.forEach(author => {
             author.innerHTML = app.html`
                 ${this.currentSong.singer.map((singer, index) => {
-                    return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ', '}`
-                })}
+                return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ', '}`
+            })}
             
             `;
         })
-        
+
         popUpSongAuthor.innerHTML = app.html`
             ${this.currentSong.singer.map((singer, index) => {
-                return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ', '}`
-            })}
+            return app.html`<a href="#" class="is-ghost">${singer}</a>${index < this.currentSong.singer.length - 1 && ', '}`
+        })}
         `;
 
         this.setPlayerInfoWidth()
@@ -2192,14 +2194,13 @@ const app = {
         })
         audio.src = `${this.currentSong.path}`;
         durationTimes.forEach(durationTime => {
-            setInterval(()=>{
-                if(audio.duration){
+            setInterval(() => {
+                if (audio.duration) {
                     durationTime.innerText = parseTime(audio.duration);
-                }else
-                    {
-                        durationTime.innerText = "--:--";
-                    }
-            },500)          
+                } else {
+                    durationTime.innerText = "--:--";
+                }
+            }, 500)
         })
         this.setConfig('currentIndex', this.currentIndex);
     },
@@ -2211,7 +2212,7 @@ const app = {
             playerSongTitle.style.width = songAnimateTitles[0].offsetWidth / 2 + 'px'
         })
         this.slideTitleWidth = playerSongTitles[0].offsetWidth;
-        
+
     },
 
     // Handle title runs/stops
@@ -2219,8 +2220,8 @@ const app = {
         // Smooth Animation
         this.smoothAnimation(title)
         const titleAnimate = title.animate([
-            {transform: 'translate(0px)'},
-            {transform: `translateX(-${this.slideTitleWidth}px)`}
+            { transform: 'translate(0px)' },
+            { transform: `translateX(-${this.slideTitleWidth}px)` }
         ], {
             duration: 21 * this.slideTitleWidth,
             iterations: Infinity,
@@ -2228,25 +2229,25 @@ const app = {
         titleAnimate.pause()
         return titleAnimate
     },
-    
-    audioCalTime: function(time) {
+
+    audioCalTime: function (time) {
         let minute;
         let second;
-        if(time) {
-            minute = Math.floor(time / 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
-            second = Math.floor(time % 60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+        if (time) {
+            minute = Math.floor(time / 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
+            second = Math.floor(time % 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
         } else {
-            minute = (0).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
-            second = (0).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
+            minute = (0).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })
+            second = (0).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })
         }
         return `${minute}:${second}`;
     },
 
     smoothAnimation(element) {
-            element.style.willChange = 'transform, opacity';
+        element.style.willChange = 'transform, opacity';
     },
 
-    loadConfig: function() {
+    loadConfig: function () {
         this.isRandom = this.config.isRandom || false;
         this.isRepeat = this.config.isRepeat || false;
         this.currentIndex = this.config.currentIndex || 0;
@@ -2295,7 +2296,7 @@ const app = {
         document.documentElement.style.setProperty('--navigation-text', currentThemeColor.navigationText)
         document.documentElement.style.setProperty('--placeholder-text', currentThemeColor.placeholderText)
 
-        if(this.themes[themeListIndex][currentTheme].image) {
+        if (this.themes[themeListIndex][currentTheme].image) {
             App.style.backgroundImage = `url('${this.themes[themeListIndex][currentTheme].image}')`;
             playerPopUp.style.backgroundImage = `url('${this.themes[themeListIndex][currentTheme].image}')`;
             App.classList.add('has__theme-img')
@@ -2304,7 +2305,7 @@ const app = {
             playerPopUp.style.backgroundImage = 'none';
             App.classList.remove('has__theme-img')
         }
-        if(this.themes[themeListIndex][currentTheme].playerImage) {
+        if (this.themes[themeListIndex][currentTheme].playerImage) {
             player.style.backgroundImage = `url('${this.themes[themeListIndex][currentTheme].playerImage}')`
             playerPopUpFooter.style.backgroundImage = `url('${this.themes[themeListIndex][currentTheme].playerImage}')`
         } else {
@@ -2315,14 +2316,14 @@ const app = {
 
     },
 
-    setUpRender: function() {
+    setUpRender: function () {
         this.songs = this.songPlaylists[this.currentPlaylist]
-        if(this.durationList[this.currentPlaylist].length === 0) {
+        if (this.durationList[this.currentPlaylist].length === 0) {
             this.songs.forEach((song, index) => this.durationList[this.currentPlaylist].push('--/--'))
         }
     },
 
-    prevSlide: function() {
+    prevSlide: function () {
         const slideMoveItems = Array.from($$('.explore__slide--container .explore__slide-item'))
         $('.explore__slide-item.next').classList.remove('next')
         $('.explore__slide-item.prev').classList.remove('prev')
@@ -2332,7 +2333,7 @@ const app = {
         const fourthSlide = $('.explore__slide-item.fourth')
         const sixthSlide = $('.explore__slide-item.sixth')
         const fifthSlideIndex = slideMoveItems.indexOf(sixthSlide) === 0 ? slideMoveItems.length - 1 : slideMoveItems.indexOf(sixthSlide) - 1;
-        const fifthSlide =  slideMoveItems[fifthSlideIndex]
+        const fifthSlide = slideMoveItems[fifthSlideIndex]
 
         firstSlide.classList.replace('first', 'second')
         secondSlide.classList.replace('second', 'third')
@@ -2344,7 +2345,7 @@ const app = {
         sixthSlide.classList.replace('sixth', 'first')
     },
 
-    nextSlide: function() {
+    nextSlide: function () {
         const slideMoveItems = Array.from($$('.explore__slide--container .explore__slide-item'))
         $('.explore__slide-item.next').classList.remove('next')
         $('.explore__slide-item.prev').classList.remove('prev')
@@ -2354,7 +2355,7 @@ const app = {
         const fourthSlide = $('.explore__slide-item.fourth')
         const sixthSlide = $('.explore__slide-item.sixth')
         const fifthSlideIndex = slideMoveItems.indexOf(fourthSlide) === slideMoveItems.length - 1 ? 0 : slideMoveItems.indexOf(fourthSlide) + 1;
-        const fifthSlide =  slideMoveItems[fifthSlideIndex]
+        const fifthSlide = slideMoveItems[fifthSlideIndex]
 
         firstSlide.classList.add('prev')
         firstSlide.classList.replace('first', 'sixth')
@@ -2366,38 +2367,38 @@ const app = {
         sixthSlide.classList.replace('sixth', 'fifth')
     },
 
-    nextSong: function() {
+    nextSong: function () {
         this.currentIndex++;
-            if(this.currentIndex >= this.songs.length) {
-                this.currentIndex = 0;
-            }
+        if (this.currentIndex >= this.songs.length) {
+            this.currentIndex = 0;
+        }
         this.loadCurrentSong();
     },
 
-    prevSong: function() {
+    prevSong: function () {
         this.currentIndex--;
-        if(this.currentIndex < 0) {
+        if (this.currentIndex < 0) {
             this.currentIndex = this.songs.length - 1;
         }
         this.loadCurrentSong();
     },
 
-    playRandomSong: function() {
+    playRandomSong: function () {
         let newIndex
-    
+
         do {
             newIndex = Math.floor(Math.random() * this.songs.length);
         } while (newIndex === this.currentIndex || this.indexArray.includes(newIndex))
         this.indexArray.push(newIndex);
         this.currentIndex = newIndex;
         this.loadCurrentSong();
-        if(this.indexArray.length === this.songs.length) {
+        if (this.indexArray.length === this.songs.length) {
             this.indexArray = [];
         }
     },
 
-    scrollToActiveSong: function() {
-        setTimeout(function() {
+    scrollToActiveSong: function () {
+        setTimeout(function () {
             Array.from($$('.playlist__list-song.active')).forEach(songActive => {
                 songActive.scrollIntoView({
                     behavior: 'smooth',
@@ -2409,7 +2410,7 @@ const app = {
 
     getSlideIndex(step, slideOrder, listItems, listBtn) {
         this.slideIndexs[slideOrder] += step;
-        if(this.slideIndexs[slideOrder] + step > listItems.length - 1) {
+        if (this.slideIndexs[slideOrder] + step > listItems.length - 1) {
             this.slideIndexs[slideOrder] = listItems.length - 1;
             listBtn[1].classList.add('button--disabled')
             listBtn[0].classList.remove('button--disabled')
@@ -2431,7 +2432,7 @@ const app = {
         const currentIndex = Math.floor(this.slideIndexs[slideOrder] / Math.abs(step))
         // Scroll Into View
         listContainer.scrollLeft = listContainer.offsetWidth * currentIndex
- 
+
     },
 
     // getSlideIndex(currentIndex, slideOrder, listItems, step) {
@@ -2479,25 +2480,25 @@ const app = {
 
 
 
-    start: function() {
+    start: function () {
         // Setup duration time to render
         this.setUpRender()
 
         // Assign configuration from config to application
         this.loadConfig();
-        
+
         // Define properties for the object
         this.defineProperties();
-        
+
         // Render playlist
         this.render();
 
         // Load the first song information into the UI when running the app
         this.loadCurrentSong();
-        
+
         // Listening / handling events (DOM events)
         this.handleEvents();
-        
+
     }
 
 }
